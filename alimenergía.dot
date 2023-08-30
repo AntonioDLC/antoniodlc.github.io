@@ -1,0 +1,127 @@
+digraph
+{
+	node [shape=box];
+	rankdir=RL;
+
+	{CarbohydrateReq117to142gd_BB0
+		[
+			label="Gottstein U, Held K. 1979.\nEffects of aging on cerebral circulation and metabolism in man.\nActa Neurologica Scand 60:54–55\n-->NOT FOUND<--"
+			href="https://onlinelibrary.wiley.com/toc/16000404/1979/60/1"
+		]
+	}->CarbohydrateReq117to142gd;
+	{Reinmuth1965
+		[
+			label="Reinmuth OM, Scheinberg P, Bourne B. 1965.\nTotal cerebral blood flow and metabolism.\nArch Neurol 12:49–66\n-->PAYWALL: 40 U$D<--"
+			href="https://jamanetwork.com/journals/jamaneurology/article-abstract/565553"
+		]
+	}->CarbohydrateReq117to142gd;
+	{CarbohydrateReq117to142gd_BB2
+		[
+			label="Scheinberg P, Stead EA. 1949.\nThe cerebral blood flow in male subjects as measured by the nitrous oxide technique.\nNormal values for blood flow, oxygen utilization, glucose utilization, and peripheral resistance,\nwith observations on the effect of tiliting and anxiety.\nJ Clin Invest 28:1163–1171\n-->FREE!!!<--"
+			href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC439673/"
+		]
+	}->CarbohydrateReq117to142gd;
+	{CarbohydrateReq117to142gd_BB3
+		[
+			label="Sokoloff L, Fitzgerald GG, Kaufman EE. 1977.\nCerebral nutrition and energy metabolism.\nIn: Wurtman RJ, Wurtman JJ, eds. Nutrition and the Brain.\nNew York: Raven Press. Pp. 87–139\n-->PAYWALL: 32 U$D<--"
+			href="https://www.annualreviews.org/doi/pdf/10.1146/annurev.me.24.020173.001415"
+		]
+	}->CarbohydrateReq117to142gd;
+
+	{CarbohydrateReq117to142gd [label="The brain’s requirement for carbohydrates is in the range of approximately 117 to 142 g/d"]}->CarbohydrateReq87to112gd;
+	
+	Reinmuth1965->GlucoseUtilizationRategConst;
+
+	{GlucoseUtilizationRategConst [label="Regardless of age and the associated change in brain mass, the glucose utilization rate/g of brain tissue\nremains rather constant, at least up to age 73 years"]}->EARisTheSameForAllAdults;
+
+
+{PereiraBB[
+label="Raguso CA, Pereira P, Young VR. 1999. A tracer investigation of obligatory oxida-
+tive amino acid losses in healthy, young adults. Am J Clin Nutr 70:474–483.
+--> FREE!!! <--"
+href="https://academic.oup.com/ajcn/article/70/4/474/4729071"
+]}
+->
+"In people who consumed a protein-free diet, total nitrogen excretion was
+reported to be in the range of 2.5 to 3.5 g/d (35 to 50 mg/kg), or the
+equivalent of 16 to 22 g of catabolized protein in a 70-kg man"
+->
+"For a 70-kg lean male, this equals 56 g/d of protein which is greater than
+the estimated obligate daily loss in body protein from the shedding of
+cells, secretions, and other miscellaneous functions (approximately 6 to
+8 g/d for a 70-kg man) and has been assumed to be due to
+inefficient utilization of amino acids for synthesis of replacement proteins
+and other amino acid-derived products. In
+part, it also may represent the technical difficulty in determining a mini-
+mal daily protein requirement."
+->
+"56 g/d of dietary protein is required for protein homeostasis"->UnderivedProteinIsTurnedIntoGlucose
+
+
+
+{JanneyBB
+	[
+		label="Janney NW. 1915. The metabolic relationship of the proteins to glucose. J Biol
+		Chem 20:321–350.
+		--> FREE!!! <--"
+		href="https://doi.org/10.1016/S0021-9258(18)88247-3"
+	]
+}
+->
+"[Source not clear. Redirecting to closest source pointed at the text.]"
+->
+"The actual daily loss of protein is only approximately 7 g"->UnderivedProteinIsTurnedIntoGlucose
+
+
+{UnderivedProteinIsTurnedIntoGlucose [label="Presumably the remaining difference (49 g) is metabolized and may be utilized for
+new glucose production"]}->GlucoseProducedFromUnderivedProtein
+
+JanneyBB->"It has been determined that for ingested animal
+protein, approximately 0.56 g of glucose can be derived from every 1 g of
+protein ingested"->GlucoseProducedFromUnderivedProtein
+
+{GlucoseProducedFromUnderivedProtein [label="From the 49 g of protein not directly
+utilized to replace loss of endogenous protein or not used for other
+synthetic processes, approximately 27 g (0.56 × 49) of glucose may be
+produced."]}->ProteinFreeDieteGlucosCatabolization
+
+{ProteinFreeDieteGlucosCatabolization [label=
+"In people on a protein-free diet or who are starving, the 16 to
+22 g of catabolized protein could provide 10 to 14 g of glucose."]};
+
+{ProteinFreeDieteGlucosCatabolization;
+"The glycerol content of a typical triacylglycerol is 10 percent by weight, or in this case
+19 g of glycerol, which is equivalent to approximately 19 g of glucose"
+}->"The glucose derived from triacylglycerol,
+plus the amount of glucose potentially derived from protein, gives a total
+of approximately 30 to 34 g ([10 to 14] + 19)"->
+	{ObligatoryProteinGlucose [label="The glucose produced from the obligatory turnover of protein plus
+the glucose produced from glycerol is approximately 30 g/d"]}->CarbohydrateReq87to112gd;
+
+
+	{CarbohydrateReq87to112gd [label="The overall dietary carbohydrate requirement in the presence of an energy-adequate diet would be\napproximately 87 (117 – 30) to 112 (142 – 30) g/d"]} -> Carbohydrates100gdFuelsTheNervousSystem;
+
+	{Carbohydrates100gdFuelsTheNervousSystem [label="100 g/d amount of carbohydrates should be sufficient to fuel central nervous system cells\nwithout having to rely on a partial replacement of glucose by ketoacids."];
+}->EARis100gd;
+
+	{CarbohydratesFuelOnlyNervousStuff [label="It is provisionally suggested that an EAR for carbohydrate ingestion in the context of overall\nfood energy sufficiency be based on an amount of digestible carbohydrate that would provide the brain (i.e., central nervous system)\nwith an adequate supply of glucose fuel without the requirement for additional glucose production\nfrom ingested protein or triacylglycerols"]}->EARis100gd;
+
+	{AcetoAcetateAndHydroxyButyrateMustnotriseTooMuch [label="The amount of glucose should be sufficient to supply the brain
+	with fuel in the absence of a rise in circulating aceto-acetate and β-hydroxybutyrate concentrations
+	greater than that observed in an individual after an overnight fast"]}->EARis100gd;
+
+	{AssumingAnAcceptableMacronutrientDistributionRange [label="Assuming the consumption of an energy-sufficient diet containing an Acceptable
+Macronutrient Distribution Range of carbohydrate intake (approximately
+45 to 65 percent of energy)"]}->EARis100gd;
+
+	"The decrease in brain glucose oxidation rate\nis not likely to be substantially less in aged adults"->EARisTheSameForAllAdults;
+	{EARisTheSameForAllAdults [label="The EAR is the same for all adults"]}->EARis100gd;
+	
+	{
+		EARis100gd [label="Estimated Average Requirement (EAR) for Women and Men of >= 19 years:\n100 g/d of carbohydrates"];
+		"The RDA for carbohydrate is set by using\na CV (coefficient of variation) of 15 percent to cover the needs of 97 to 98 percent of the individuals in the group";
+		"RDA = ((1 + 2 x CV) × EAR)";
+	}
+			->"Recommended Dietary Allowance (RDA) for Women and Men of >= 19 years:\n130 g/d of carbohydrates"
+	;
+}

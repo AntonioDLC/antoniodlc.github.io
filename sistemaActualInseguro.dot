@@ -1,0 +1,20 @@
+digraph
+{
+	node [shape=box];
+	rankdir=RL;
+
+	{
+		"El trabajo esencial es aquel que sirve a la salud del ser humano";
+		"El esfuerzo involuntario es el invertido por una persona en un trabajo que no disfruta en sí";
+		"Hay personas haciendo trabajos no esenciales que no disfrutan";
+	}
+	->"El total de esfuerzo involuntario básico necesario para mantener la salud de una población 
+	es menor al total de esfuerzo involuntario que está siendo actualmente invertido"
+	->{PocoEficiente [label="La forma actual de llevar una vida saludable es poco eficiente"]}
+
+	"Hay necesidades básicas no cubiertasen algunas personas"
+	->{PocoEficaz [label="La forma actual de llevar una vida saludable a veces es ineficaz"]}
+
+	{PocoEficiente;PocoEficaz}->"La forma actual de llevar una vida saludable es ineficiente y a veces hasta ineficaz"
+	->"Hay forma(s) mejor(es) de vivir con menos esfuerzo comparada a la actual"
+}

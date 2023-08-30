@@ -1,0 +1,1 @@
+digraph { rankdir="BT" {A; B;}->D;C->E;{D; E;}->F}
