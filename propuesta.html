@@ -57,4 +57,55 @@
 			<li>Procesar todos los alimentos posibles por región a través del algoritmo de la dieta para ver cuánta gente sostiene</li>
 			<li>Analizar los lugares para construcción de vivienda con materiales cercanos</li>
 		</ul>
+
+		<h2>Necesidades alimenticias</h2>
+
+		<p>En algún momento del siglo XX se descubrieron los macronutrientes y micronutrientes que sostienen el cuerpo del ser humano.</p>
+		<p>Se hicieron experimentaciones y mediciones que acabaron en tablas de ingesta recomendada de cada nutriente descubierto.</p>
+		<h3>Hay 3 recursos relevantes de alta disponibilidad:</h3>
+		<ul>
+			<li>La base de ingesta recomendada diaria (en promedio) más referenciada en el mundo es <a href="https://ods.od.nih.gov/HealthInformation/nutrientrecommendations.aspx">USA's National Health Institute</a></li>
+			<li>La base de alimentos y sus nutrientes más prominente es <a href="https://fdc.nal.usda.gov/">FoodData Central</a> (también de USA)</li>
+			<li>Existe un algoritmo de programación lineal para resolver el <a href="https://web.archive.org/web/20160411141356/https://dl.dropboxusercontent.com/u/5317066/1990-dantzig-dietproblem.pdf">problema de la dieta</a> que recibe como input una tabla de alimentos y sus nutrientes por porción y retorna la cantidad de porciones de cada alimento que debe ingerirse diariamente en promedio para lograr la ingesta diaria recomendada.</li>
+		</ul>
+		<p>Tenemos entonces todos los elementos necesarios para que dado un conjunto de alimentos disponibles, calculemos la producción óptima de cada uno para ser capaces de satisfacer la ingesta de nutrientes recomendada de una población.</p>
+
+		<h2>Producción de alimentos por zona geográfica</h2>
+
+		<p>Desgraciadamente no todos los lugares y momentos son óptimos para todos los alimentos. Varía el tipo de alimento que podemos producir dependiendo de la temporada, clima, suelo, fauna, humedad y quien sabe qué otros factores que sabrá el agrónomo.</p>
+
+		<p>Si no está documentado ya, debería elaborarse una base de datos que por área geográfica indique el tipo de alimentos que pueden producirse y cuánto por año.</p>
+
+		<h2>Detectar áreas óptimas de producción para la nutrición</h2>
+
+		<p>Falta entonces una herramienta que permita o circular un área en el mapa y que nos diga si es capaz de satisfacer las necesidades humanas de cuánta gente, o que dado un área extensa nos indique la distribución óptima de población para saciar toda necesidad nutricional con el mínimo de logística según lo que se pueda producir por zona.</p>
+
+		<h2>Construcción de vivienda</h2>
+
+		<p>Podría ser parte de la herramienta o no, pero se debe priorizar el poder construír en el área indicada con materiales fácilmente encontrables en el lugar. De última se puede construír clásicamente, pero solo como último recurso. Es preferible que la gente sepa cómo se fabricó su casa y sepa mantenerla permanentemente al punto en que pueda reconstruírla de cero si es necesario sin depender de recursos finitos y/o de poca disponibilidad.</p>
+		<p>Parte de la vivienda es el horno para cocinar. Si no hay combustible disponible todo el año, que sea solar.</p>
+
+		<h2>Higiene</h2>
+
+		<p>Parte de la producción local debe destinarse al alcohol y si es posible su destilación. Para uso desinfectante.</p>
+		<p>La producción de jabón conlleva un proceso industrial algo más elevado. La materia prima no es obtenible directamente, todo conlleva procesos químicos de laboratorio que probablemente no sea factible tener en toda localidad. La fabriación de jabón deberá llevarse a cabo en centros que abastescan al resto.</p>
+
+		<h2>Medicina</h2>
+
+		<p>Además de tener kits de primeros auxilios,las localidades deben ubicarse a distancias razonables de un hospital equipado, para casos de emergencia.</p>
+
+		<h1>¿Y el wifi?</h1>
+
+		<p>Bien, hay necesidades actuales que si bien teóricamente no son necesarias para la preservación saludable del cuerpo, en el último siglo se han convertido en derechos adquiridos de la sociedad en todos sus estratos:</p>
+
+		<ul>
+			<li><img src="images/electricidad.svg" class="icon"/> Electricidad</li>
+			<li><img src="images/comunicación.svg" class="icon"/> Comunicación instantánea</li>
+		</ul>
+
+		<p>Te sorprendería saber que es más factible crear cables, imanes y por lo tanto motores eléctricos que hacer jabón.</p>
+		<p>En particular hay un tipo de motor que me parece altamente mantenible y fabricable artesanalmente llamado <a href="https://es.wikipedia.org/wiki/Motor_Stirling">Stirling</a>. Puede aprovechar cualquier fuente de calor para generar energía, como el <a href="https://es.wikipedia.org/wiki/Motor_Stirling_de_energ%C3%ADa_solar">calor del sol</a>.</p>
+		<p>Con esto ya podrías sostener un electrodoméstico, bomba de agua, o lo que sea que convenga que funcione con electricidad.</p>
+
+		<p>Incluso podrías sostener un módem de wifi. Respecto a su mantenimento y fabricación habría que investigar cuál es el mínimo esfuerzo necesario para construír la fábrica que fabrique microchips y demás dispositivos a los que nos hemos acostumbrado.</p>
 </html>
