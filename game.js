@@ -34,8 +34,8 @@ var Module = typeof Module != 'undefined' ? Module : {};
         // web worker
         PACKAGE_PATH = encodeURIComponent(location.pathname.toString().substring(0, location.pathname.toString().lastIndexOf('/')) + '/');
       }
-      var PACKAGE_NAME = 'game.data';
-      var REMOTE_PACKAGE_BASE = 'game.data';
+      var PACKAGE_NAME = 'index.data';
+      var REMOTE_PACKAGE_BASE = 'index.data';
       if (typeof Module['locateFilePackage'] === 'function' && !Module['locateFile']) {
         Module['locateFile'] = Module['locateFilePackage'];
         err('warning: you defined Module.locateFilePackage, that has been renamed to Module.locateFile (using your locateFilePackage for now)');
@@ -167,10 +167,10 @@ Module['FS_createPath']("/common", "assets", true, true);
           var files = metadata['files'];
           for (var i = 0; i < files.length; ++i) {
             DataRequest.prototype.requests[files[i].filename].onload();
-          }          Module['removeRunDependency']('datafile_game.data');
+          }          Module['removeRunDependency']('datafile_index.data');
 
       };
-      Module['addRunDependency']('datafile_game.data');
+      Module['addRunDependency']('datafile_index.data');
 
       if (!Module.preloadResults) Module.preloadResults = {};
 
@@ -191,7 +191,7 @@ Module['FS_createPath']("/common", "assets", true, true);
     }
 
     }
-    loadPackage({"files": [{"filename": "/common/assets/PixeloidMono.ttf", "start": 0, "end": 83936}, {"filename": "/common/assets/cbrezier.fs", "start": 83936, "end": 84313}, {"filename": "/common/assets/container.jpg", "start": 84313, "end": 269252}, {"filename": "/common/assets/ellipse.fs", "start": 269252, "end": 269542}, {"filename": "/common/assets/emissive_color.fs", "start": 269542, "end": 269645}, {"filename": "/common/assets/flat_color.fs", "start": 269645, "end": 269948}, {"filename": "/common/assets/flat_vertex.vs", "start": 269948, "end": 270201}, {"filename": "/common/assets/ic_launcher_back.svg", "start": 270201, "end": 273313}, {"filename": "/common/assets/ic_launcher_front.svg", "start": 273313, "end": 276779}, {"filename": "/common/assets/lighted.fs", "start": 276779, "end": 276975}, {"filename": "/common/assets/lighted.vs", "start": 276975, "end": 277254}, {"filename": "/common/assets/postexture.vs", "start": 277254, "end": 277466}, {"filename": "/common/assets/text.fs", "start": 277466, "end": 277640}, {"filename": "/common/assets/texture.fs", "start": 277640, "end": 277795}, {"filename": "/common/assets/texture.vs", "start": 277795, "end": 278048}, {"filename": "/common/assets/texture3D.vs", "start": 278048, "end": 278306}, {"filename": "/common/assets/unf.png", "start": 278306, "end": 1250829}, {"filename": "/common/assets/vertex.vs", "start": 1250829, "end": 1250997}, {"filename": "/common/assets/waifu.jpeg", "start": 1250997, "end": 1312841}, {"filename": "/common/assets/xana.jpg", "start": 1312841, "end": 1340964}], "remote_package_size": 1340964});
+    loadPackage({"files": [{"filename": "/common/assets/PixeloidMono.ttf", "start": 0, "end": 83936}, {"filename": "/common/assets/cbrezier.fs", "start": 83936, "end": 84313}, {"filename": "/common/assets/colorInterpolation.fs", "start": 84313, "end": 84385}, {"filename": "/common/assets/colorInterpolation.vs", "start": 84385, "end": 84625}, {"filename": "/common/assets/ellipse.fs", "start": 84625, "end": 84915}, {"filename": "/common/assets/emissive_color.fs", "start": 84915, "end": 85018}, {"filename": "/common/assets/expand.png", "start": 85018, "end": 85275}, {"filename": "/common/assets/explore.png", "start": 85275, "end": 85528}, {"filename": "/common/assets/exterminate.png", "start": 85528, "end": 85800}, {"filename": "/common/assets/flat_color.fs", "start": 85800, "end": 86103}, {"filename": "/common/assets/flat_vertex.vs", "start": 86103, "end": 86356}, {"filename": "/common/assets/flippedCommand.png", "start": 86356, "end": 86553}, {"filename": "/common/assets/ic_launcher_back.svg", "start": 86553, "end": 89665}, {"filename": "/common/assets/ic_launcher_front.svg", "start": 89665, "end": 93131}, {"filename": "/common/assets/lighted.fs", "start": 93131, "end": 93327}, {"filename": "/common/assets/lighted.vs", "start": 93327, "end": 93606}, {"filename": "/common/assets/postexture.vs", "start": 93606, "end": 93818}, {"filename": "/common/assets/text.fs", "start": 93818, "end": 93992}, {"filename": "/common/assets/texture.fs", "start": 93992, "end": 94147}, {"filename": "/common/assets/texture.vs", "start": 94147, "end": 94400}, {"filename": "/common/assets/texture3D.vs", "start": 94400, "end": 94658}, {"filename": "/common/assets/vertex.vs", "start": 94658, "end": 94826}], "remote_package_size": 94826});
 
   })();
 
@@ -900,7 +900,7 @@ function createExportWrapper(name, fixedasm) {
 // include: runtime_exceptions.js
 // end include: runtime_exceptions.js
 var wasmBinaryFile;
-  wasmBinaryFile = 'game.wasm';
+  wasmBinaryFile = 'index.wasm';
   if (!isDataURI(wasmBinaryFile)) {
     wasmBinaryFile = locateFile(wasmBinaryFile);
   }
@@ -1176,6 +1176,11 @@ function dbg(text) {
 }
 // end include: runtime_debug.js
 // === Body ===
+
+var ASM_CONSTS = {
+  174464: ($0, $1, $2, $3) => { Module.ctx.getBufferSubData($0, $1, HEAPU8.subarray($2, $2 + $3)); }
+};
+
 
 // end include: preamble.js
 
@@ -4724,6 +4729,41 @@ function dbg(text) {
       throw Infinity;
     };
 
+  var readEmAsmArgsArray = [];
+  var readEmAsmArgs = (sigPtr, buf) => {
+      // Nobody should have mutated _readEmAsmArgsArray underneath us to be something else than an array.
+      assert(Array.isArray(readEmAsmArgsArray));
+      // The input buffer is allocated on the stack, so it must be stack-aligned.
+      assert(buf % 16 == 0);
+      readEmAsmArgsArray.length = 0;
+      var ch;
+      // Most arguments are i32s, so shift the buffer pointer so it is a plain
+      // index into HEAP32.
+      buf >>= 2;
+      while (ch = HEAPU8[sigPtr++]) {
+        var chr = String.fromCharCode(ch);
+        var validChars = ['d', 'f', 'i'];
+        assert(validChars.includes(chr), `Invalid character ${ch}("${chr}") in readEmAsmArgs! Use only [${validChars}], and do not specify "v" for void return argument.`);
+        // Floats are always passed as doubles, and doubles and int64s take up 8
+        // bytes (two 32-bit slots) in memory, align reads to these:
+        buf += (ch != 105/*i*/) & buf;
+        readEmAsmArgsArray.push(
+          ch == 105/*i*/ ? HEAP32[buf] :
+         HEAPF64[buf++ >> 1]
+        );
+        ++buf;
+      }
+      return readEmAsmArgsArray;
+    };
+  var runEmAsmFunction = (code, sigPtr, argbuf) => {
+      var args = readEmAsmArgs(sigPtr, argbuf);
+      if (!ASM_CONSTS.hasOwnProperty(code)) abort(`No EM_ASM constant found at address ${code}`);
+      return ASM_CONSTS[code].apply(null, args);
+    };
+  var _emscripten_asm_const_int = (code, sigPtr, argbuf) => {
+      return runEmAsmFunction(code, sigPtr, argbuf);
+    };
+
   function _emscripten_date_now() {
       return Date.now();
     }
@@ -8243,6 +8283,7 @@ var wasmImports = {
   "__syscall_sendto": ___syscall_sendto,
   "_emscripten_get_now_is_monotonic": __emscripten_get_now_is_monotonic,
   "_emscripten_throw_longjmp": __emscripten_throw_longjmp,
+  "emscripten_asm_const_int": _emscripten_asm_const_int,
   "emscripten_date_now": _emscripten_date_now,
   "emscripten_get_now": _emscripten_get_now,
   "emscripten_memcpy_big": _emscripten_memcpy_big,
@@ -8490,7 +8531,7 @@ var missingLibrarySymbols = [
   'getCallstack',
   'emscriptenLog',
   'convertPCtoSourceLocation',
-  'readEmAsmArgs',
+  'runMainThreadEmAsm',
   'jstoi_s',
   'getExecutableName',
   'listenOnce',
@@ -8662,6 +8703,8 @@ var unexportedSymbols = [
   'warnOnce',
   'UNWIND_CACHE',
   'readEmAsmArgsArray',
+  'readEmAsmArgs',
+  'runEmAsmFunction',
   'jstoi_q',
   'handleException',
   'callUserCallback',
