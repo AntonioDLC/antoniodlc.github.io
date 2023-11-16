@@ -191,7 +191,7 @@ Module['FS_createPath']("/common", "assets", true, true);
     }
 
     }
-    loadPackage({"files": [{"filename": "/common/assets/PixeloidMono.ttf", "start": 0, "end": 83936}, {"filename": "/common/assets/cbrezier.fs", "start": 83936, "end": 84313}, {"filename": "/common/assets/codelyoko.wav", "start": 84313, "end": 11022685, "audio": 1}, {"filename": "/common/assets/colorInterpolation.fs", "start": 11022685, "end": 11022757}, {"filename": "/common/assets/colorInterpolation.vs", "start": 11022757, "end": 11022997}, {"filename": "/common/assets/ellipse.fs", "start": 11022997, "end": 11023287}, {"filename": "/common/assets/emissive_color.fs", "start": 11023287, "end": 11023390}, {"filename": "/common/assets/flat_color.fs", "start": 11023390, "end": 11023693}, {"filename": "/common/assets/flat_vertex.vs", "start": 11023693, "end": 11023946}, {"filename": "/common/assets/ic_launcher_back.svg", "start": 11023946, "end": 11027058}, {"filename": "/common/assets/ic_launcher_front.svg", "start": 11027058, "end": 11030524}, {"filename": "/common/assets/lighted.fs", "start": 11030524, "end": 11030720}, {"filename": "/common/assets/lighted.vs", "start": 11030720, "end": 11030999}, {"filename": "/common/assets/postexture.vs", "start": 11030999, "end": 11031211}, {"filename": "/common/assets/text.fs", "start": 11031211, "end": 11031385}, {"filename": "/common/assets/texture.fs", "start": 11031385, "end": 11031540}, {"filename": "/common/assets/texture.vs", "start": 11031540, "end": 11031793}, {"filename": "/common/assets/texture3D.vs", "start": 11031793, "end": 11032051}, {"filename": "/common/assets/vertex.vs", "start": 11032051, "end": 11032219}, {"filename": "/common/assets/xana.png", "start": 11032219, "end": 11173298}], "remote_package_size": 11173298});
+    loadPackage({"files": [{"filename": "/common/assets/PixeloidMono.ttf", "start": 0, "end": 83936}, {"filename": "/common/assets/Talaiporia.png", "start": 83936, "end": 942723}, {"filename": "/common/assets/cbrezier.fs", "start": 942723, "end": 943100}, {"filename": "/common/assets/codelyoko.wav", "start": 943100, "end": 11881472, "audio": 1}, {"filename": "/common/assets/colorInterpolation.fs", "start": 11881472, "end": 11881544}, {"filename": "/common/assets/colorInterpolation.vs", "start": 11881544, "end": 11881784}, {"filename": "/common/assets/ellipse.fs", "start": 11881784, "end": 11882074}, {"filename": "/common/assets/emissive_color.fs", "start": 11882074, "end": 11882177}, {"filename": "/common/assets/flat_color.fs", "start": 11882177, "end": 11882480}, {"filename": "/common/assets/flat_vertex.vs", "start": 11882480, "end": 11882733}, {"filename": "/common/assets/ic_launcher_back.svg", "start": 11882733, "end": 11885845}, {"filename": "/common/assets/ic_launcher_front.svg", "start": 11885845, "end": 11889311}, {"filename": "/common/assets/lighted.fs", "start": 11889311, "end": 11889507}, {"filename": "/common/assets/lighted.vs", "start": 11889507, "end": 11889786}, {"filename": "/common/assets/postexture.vs", "start": 11889786, "end": 11889998}, {"filename": "/common/assets/text.fs", "start": 11889998, "end": 11890172}, {"filename": "/common/assets/texture.fs", "start": 11890172, "end": 11890327}, {"filename": "/common/assets/texture.vs", "start": 11890327, "end": 11890580}, {"filename": "/common/assets/texture3D.vs", "start": 11890580, "end": 11890838}, {"filename": "/common/assets/vertex.vs", "start": 11890838, "end": 11891006}, {"filename": "/common/assets/xana.png", "start": 11891006, "end": 12032085}], "remote_package_size": 12032085});
 
   })();
 
@@ -1177,7 +1177,7 @@ function dbg(text) {
 // === Body ===
 
 var ASM_CONSTS = {
-  230624: ($0, $1, $2, $3) => { Module.ctx.getBufferSubData($0, $1, HEAPU8.subarray($2, $2 + $3)); }
+  138736: ($0, $1, $2, $3) => { Module.ctx.getBufferSubData($0, $1, HEAPU8.subarray($2, $2 + $3)); }
 };
 
 
@@ -3981,10 +3981,6 @@ var ASM_CONSTS = {
 
   var nowIsMonotonic = true;;
   var __emscripten_get_now_is_monotonic = () => nowIsMonotonic;
-
-  var __emscripten_throw_longjmp = () => {
-      throw Infinity;
-    };
 
   function readI53FromI64(ptr) {
       return HEAPU32[ptr>>2] + HEAP32[ptr+4>>2] * 4294967296;
@@ -8180,13 +8176,6 @@ var ASM_CONSTS = {
       return mem;
     }
 
-  function _glPixelStorei(pname, param) {
-      if (pname == 0xCF5 /* GL_UNPACK_ALIGNMENT */) {
-        GL.unpackAlignment = param;
-      }
-      GLctx.pixelStorei(pname, param);
-    }
-
   function _glShaderSource(shader, count, string, length) {
       var source = GL.getSource(shader, count, string, length);
   
@@ -9376,7 +9365,6 @@ var ASM_CONSTS = {
 
 
 
-
   var FSNode = /** @constructor */ function(parent, name, mode, rdev) {
     if (!parent) {
       parent = this;  // root node sets parent to itself
@@ -9582,7 +9570,6 @@ var wasmImports = {
   "__syscall_stat64": ___syscall_stat64,
   "__syscall_unlinkat": ___syscall_unlinkat,
   "_emscripten_get_now_is_monotonic": __emscripten_get_now_is_monotonic,
-  "_emscripten_throw_longjmp": __emscripten_throw_longjmp,
   "_gmtime_js": __gmtime_js,
   "_tzset_js": __tzset_js,
   "alBufferData": _alBufferData,
@@ -9659,7 +9646,6 @@ var wasmImports = {
   "glGetUniformLocation": _glGetUniformLocation,
   "glLinkProgram": _glLinkProgram,
   "glMapBufferRange": _glMapBufferRange,
-  "glPixelStorei": _glPixelStorei,
   "glShaderSource": _glShaderSource,
   "glTexImage2D": _glTexImage2D,
   "glTexParameteri": _glTexParameteri,
@@ -9686,12 +9672,7 @@ var wasmImports = {
   "glfwSetScrollCallback": _glfwSetScrollCallback,
   "glfwSetWindowShouldClose": _glfwSetWindowShouldClose,
   "glfwSwapBuffers": _glfwSwapBuffers,
-  "glfwTerminate": _glfwTerminate,
-  "invoke_iii": invoke_iii,
-  "invoke_iiii": invoke_iiii,
-  "invoke_iiiii": invoke_iiiii,
-  "invoke_vi": invoke_vi,
-  "invoke_viiii": invoke_viiii
+  "glfwTerminate": _glfwTerminate
 };
 var asm = createWasm();
 /** @type {function(...*):?} */
@@ -9749,61 +9730,6 @@ var _emscripten_stack_get_current = function() {
 var dynCall_jiij = Module["dynCall_jiij"] = createExportWrapper("dynCall_jiij");
 /** @type {function(...*):?} */
 var dynCall_jiji = Module["dynCall_jiji"] = createExportWrapper("dynCall_jiji");
-
-function invoke_viiii(index,a1,a2,a3,a4) {
-  var sp = stackSave();
-  try {
-    getWasmTableEntry(index)(a1,a2,a3,a4);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_iii(index,a1,a2) {
-  var sp = stackSave();
-  try {
-    return getWasmTableEntry(index)(a1,a2);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_iiiii(index,a1,a2,a3,a4) {
-  var sp = stackSave();
-  try {
-    return getWasmTableEntry(index)(a1,a2,a3,a4);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_iiii(index,a1,a2,a3) {
-  var sp = stackSave();
-  try {
-    return getWasmTableEntry(index)(a1,a2,a3);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
-
-function invoke_vi(index,a1) {
-  var sp = stackSave();
-  try {
-    getWasmTableEntry(index)(a1);
-  } catch(e) {
-    stackRestore(sp);
-    if (e !== e+0) throw e;
-    _setThrew(1, 0);
-  }
-}
 
 
 // include: postamble.js
