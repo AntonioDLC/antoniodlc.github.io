@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width">
+		<style>
+			@media screen and (orientation:portrait) {
+				img { width:100%; }
+			}
+		</style>
+		<title>What to eat</title>
+	</head>
+	<body>
+		<h1>What to eat</h1>
+
+		<p id="download_progress">Loading...</p>
+
+		<ul id="food_to_process"></ul>
+
+		<button type="button" id="food_process_button">Process selection</button>
+
+		<div id="process_result"></div>
+
+		<label for="food_search_field">Choose a food:</label>
+		<input type="text" id="food_search_field"/>
+		<button type="button" id="food_search_button">Search</button>
+
+		<ul id="search_result"></ul>
+	</body>
+	<script>
+		var index_foodSearch = function(){};
+		var index_foodProcess = function(){};
+		var progressElement = document.getElementById("download_progress");
+		var Module = {
+			efiles:{},
+			onRuntimeInitialized: function() {
+				index_foodSearch = Module.cwrap('index_foodSearch', 'string', ['string']);
+				index_foodProcess = Module.cwrap('index_foodProcess', 'string', ['string']);
+			},
+			print: console.log,
+			setStatus: (text) => {
+				if (!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: '' };
+				if (text === Module.setStatus.last.text) return;
+				var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
+				var now = Date.now();
+				if (m && now - Module.setStatus.last.time < 30) return; // if this is a progress update, skip it if too soon
+				Module.setStatus.last.time = now;
+				Module.setStatus.last.text = text;
+				if (m) {
+					text = m[1];
+					progressElement.innerHTML = "Loading... (" + parseInt(m[2])*100 + "/" + parseInt(m[4])*100 + ")";
+					progressElement.hidden = false;
+				} else {
+					progressElement.innerHTML = text;
+					progressElement.hidden = true;
+				}
+			},
+			totalDependencies: 0,
+			monitorRunDependencies: (left) => {
+				this.totalDependencies = Math.max(this.totalDependencies, left);
+				Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+			}
+		};
+		Module.setStatus('Downloading...');
+		window.onerror = () => {
+			Module.setStatus('Exception thrown, see JavaScript console');
+			Module.setStatus = (text) => {
+				if (text) console.error('[post-exception status] ' + text);
+			};
+		};
+
+		var foodsToProcess = {};
+
+		document.addEventListener('DOMContentLoaded', function()
+		{
+			document.querySelector('#food_process_button').addEventListener('click', function (event)
+			{
+				var strKeys = "";
+				var keys = Object.keys(foodsToProcess);
+
+				for(const key of keys)
+					strKeys += key + "\n";
+
+				var data = index_foodProcess(strKeys);
+				var resultElem = document.getElementById("process_result");
+				resultElem.innerHTML = data;
+				
+				event.preventDefault();
+			});
+			document.querySelector('#food_search_button').addEventListener('click', function (event)
+			{
+				var textFieldElem = document.getElementById("food_search_field");
+				var data = index_foodSearch(textFieldElem.value);
+				var resultElem = document.getElementById("search_result");
+				resultElem.innerHTML = '';
+				var items = data.split('\n');
+				for(var i = 1; i < items.length; i++)
+				{
+					var litem = document.createElement('li');
+					var chkbox = document.createElement('input');
+					chkbox.setAttribute('type', 'checkbox');
+					chkbox.checked = foodsToProcess[items[i]] != null;
+					litem.appendChild(chkbox);
+					litem.appendChild(document.createTextNode(items[i]));
+					resultElem.appendChild(litem);
+
+					chkbox.onchange = function(e)
+					{
+						var processList = document.getElementById("food_to_process");
+						if(e.target.checked)
+						{
+							var processListItem = document.createElement('li');
+							processListItem.appendChild(document.createTextNode(e.target.parentElement.innerText));
+							foodsToProcess[e.target.parentElement.innerText] = processListItem;
+							processList.appendChild(processListItem);
+						}
+						else
+						{
+							processList.removeChild(foodsToProcess[e.target.parentElement.innerText]);
+							delete foodsToProcess[e.target.parentElement.innerText];
+						}
+					};
+				}
+				event.preventDefault();
+			});
+		});
+	</script>
+	<script async type="text/javascript" src="index.js"></script>
+</html>
