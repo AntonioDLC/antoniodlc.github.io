@@ -189,7 +189,7 @@ var REMOTE_PACKAGE_SIZE = metadata['remote_package_size'];
     }
 
     }
-    loadPackage({"files": [{"filename": "/diet.db", "start": 0, "end": 32862208}], "remote_package_size": 32862208});
+    loadPackage({"files": [{"filename": "/diet.db", "start": 0, "end": 4669440}], "remote_package_size": 4669440});
 
   })();
 
