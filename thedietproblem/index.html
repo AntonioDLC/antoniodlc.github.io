@@ -1,129 +1,420 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width">
-		<style>
-			@media screen and (orientation:portrait) {
-				img { width:100%; }
-			}
-		</style>
-		<title>What to eat</title>
-	</head>
-	<body>
-		<h1>What to eat</h1>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Split Layout with Search + Seasons</title>
+  <style>
+    :root {
+      font-family: system-ui, sans-serif;
+    }
+    body {
+      margin: 0;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: row;
+    }
+    .left, .right {
+      flex: 1;
+      display: flex;
+      height: 100vh;
+      margin: 0;
+    }
+    .left {
+      background: #f6f7fb;
+      justify-content: center;
+      align-items: flex-start;
+      overflow: auto;
+    }
+    .container{
+      width:100%;
+      max-width:500px;
+      background:#fff;
+      padding:20px;
+      border-radius:12px;
+      box-shadow:0 6px 18px rgba(17,24,39,0.08);
+    }
+    h1{font-size:18px;margin:0 0 12px}
+    .search-wrap{position:relative}
+    input[type="search"]{width:100%;padding:10px 12px;border:1px solid #e6e9ef;border-radius:8px;outline:none;font-size:14px}
+    input[type="search"]:focus{box-shadow:0 0 0 3px rgba(99,102,241,0.08);border-color:#6366f1}
+    .dropdown{position:absolute;left:0;right:0;top:calc(100% + 8px);background:#fff;border:1px solid #e6e9ef;border-radius:8px;max-height:220px;overflow:auto;z-index:30;box-shadow:0 6px 20px rgba(17,24,39,0.06)}
+    .item{padding:10px 12px;cursor:pointer}
+    .item:hover,.item[aria-selected="true"]{background:#f0f4ff}
+    .no-results{padding:10px 12px;color:#666}
+    .selected-list{margin-top:18px;display:flex;flex-direction:column;gap:8px}
+    .chip{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:#f7f8fb;border:1px solid #eef1fa}
+    .chip span{flex:1}
+    .btn{background:transparent;border:0;padding:6px 10px;border-radius:6px;cursor:pointer}
+    .btn:hover{background:#fee2e2}
+    .hint{font-size:12px;color:#666;margin-top:8px}
 
-		<p id="download_progress">Loading...</p>
+    .right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+    .season {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      overflow: hidden;
+    }
+    .season-title {
+      flex-shrink: 0;
+      margin-bottom: 8px;
+    }
+    .season ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-size: 0.9rem;
+      font-weight: normal;
+      overflow-y: auto;
+      text-align: left;
+      width: 100%;
+      flex: 1;
+    }
+    .season li {
+      margin: 2px 0;
+    }
+    .spring { background: #6bbf59; }
+    .summer { background: #f7b733; }
+    .fall { background: #e77c3c; }
+    .winter { background: #4a90e2; }
 
-		<ul id="food_to_process"></ul>
+    .push-right {
+        float: right;
+      }
 
-		<button type="button" id="food_process_button">Process selection</button>
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      .right {
+        display: flex;
+        flex-direction: column;
+      }
+      .left, .right {
+        height: 100vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="left">
+    <div class="container" role="application">
+      <h1 style="display:inline-block">Search and select</h1>
+      <button class = "btn push-right" onclick="swapElemListWithTextArea()">Show list as text</button>
+      <p id="download_progress">Loading...</p>
+      <div class="search-wrap">
+        <input id="search" type="search" placeholder="Type to search..." autocomplete="off" aria-autocomplete="list" aria-controls="results" aria-expanded="false" />
+        <div id="results" role="listbox" class="dropdown" hidden></div>
+      </div>
+      <div class="selected-list" id="selectedList" aria-live="polite" aria-atomic="true"></div>
+      <textarea style="display:none" id="selectedList_asText"></textarea>
+      <div class="hint">Click a dropdown item to add it. Each selected item appears below with a remove button.</div>
+    </div>
+  </div>
+  <div class="right">
+    <div id="summer" class="season summer">
+      <div class="season-title">Summer</div>
+    </div>
+    <div id="fall" class="season fall">
+      <div class="season-title">Fall</div>
+    </div>
+    <div id="winter" class="season winter">
+      <div class="season-title">Winter</div>
+    </div>
+    <div id="spring" class="season spring">
+      <div class="season-title">Spring</div>
+    </div>
+  </div>
 
-		<div id="process_result"></div>
+  <script>
+    var textAreaVisible = false;
+    var swapElemListWithTextArea = function()
+    {
+        var areaElem = document.getElementById("selectedList_asText");
+        if(textAreaVisible)
+        {   
+          while (selectedListEl.children.length > 0)
+            selectedListEl.removeChild(selectedListEl.lastElementChild);
+          selectedItems.clear();
+          areaElem.value.split('\n').forEach(selectItemWithoutProcessing);
+          processSelection();
+          areaElem.style.display = 'none';
+          textAreaVisible = false;
+        }
+        else
+        {
+          var strOptions = '';
+          for(const option of selectedItems)
+            strOptions += option + "\n";
+          strOptions = strOptions.slice(0, -1);
 
-		<label for="food_search_field">Choose a food:</label>
-		<input type="text" id="food_search_field"/>
-		<button type="button" id="food_search_button">Search</button>
+          areaElem.value = strOptions;
+          areaElem.style.display = 'inline';
+          textAreaVisible = true;
+        }
+    };
 
-		<ul id="search_result"></ul>
-	</body>
-	<script>
-		var index_foodSearch = function(){};
-		var index_foodProcess = function(){};
-		var progressElement = document.getElementById("download_progress");
-		var Module = {
-			efiles:{},
-			onRuntimeInitialized: function() {
-				index_foodSearch = Module.cwrap('index_foodSearch', 'string', ['string']);
-				index_foodProcess = Module.cwrap('index_foodProcess', 'string', ['string']);
-			},
-			print: console.log,
-			setStatus: (text) => {
-				if (!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: '' };
-				if (text === Module.setStatus.last.text) return;
-				var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
-				var now = Date.now();
-				if (m && now - Module.setStatus.last.time < 30) return; // if this is a progress update, skip it if too soon
-				Module.setStatus.last.time = now;
-				Module.setStatus.last.text = text;
-				if (m) {
-					text = m[1];
-					progressElement.innerHTML = "Loading... (" + parseInt(m[2])*100 + "/" + parseInt(m[4])*100 + ")";
-					progressElement.hidden = false;
-				} else {
-					progressElement.innerHTML = text;
-					progressElement.hidden = true;
-				}
-			},
-			totalDependencies: 0,
-			monitorRunDependencies: (left) => {
-				this.totalDependencies = Math.max(this.totalDependencies, left);
-				Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
-			}
-		};
-		Module.setStatus('Downloading...');
-		window.onerror = () => {
-			Module.setStatus('Exception thrown, see JavaScript console');
-			Module.setStatus = (text) => {
-				if (text) console.error('[post-exception status] ' + text);
-			};
-		};
+    var index_foodSearch = function(){};
+    var index_foodProcess = function(){};
+    var progressElement = document.getElementById("download_progress");
+    var Module = {
+      efiles:{},
+      onRuntimeInitialized: function() {
+        index_foodSearch = Module.cwrap('index_foodSearch', 'string', ['string']);
+        index_foodProcess = Module.cwrap('index_foodProcess', 'string', ['string', 'string']);
+      },
+      print: console.log,
+      setStatus: (text) => {
+        if (!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: '' };
+        if (text === Module.setStatus.last.text) return;
+        var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
+        var now = Date.now();
+        if (m && now - Module.setStatus.last.time < 30) return; // if this is a progress update, skip it if too soon
+        Module.setStatus.last.time = now;
+        Module.setStatus.last.text = text;
+        if (m) {
+          text = m[1];
+          progressElement.innerHTML = "Loading... (" + parseInt(m[2])*100 + "/" + parseInt(m[4])*100 + ")";
+          progressElement.hidden = false;
+        } else {
+          progressElement.innerHTML = text;
+          progressElement.hidden = true;
+        }
+      },
+      totalDependencies: 0,
+      monitorRunDependencies: (left) => {
+        this.totalDependencies = Math.max(this.totalDependencies, left);
+        Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+      }
+    };
+    Module.setStatus('Downloading...');
+    window.onerror = () => {
+      Module.setStatus('Exception thrown, see JavaScript console');
+      Module.setStatus = (text) => {
+        if (text) console.error('[post-exception status] ' + text);
+      };
+    };
 
-		var foodsToProcess = {};
+/*
+    const DATA = [
+      'Apple','Apricot','Avocado','Banana','Blackberry','Blueberry','Boysenberry','Cherry','Clementine','Coconut','Cranberry','Cucumber','Date','Dragonfruit','Durian','Elderberry','Fig','Gooseberry','Grape','Grapefruit','Guava','Honeydew','Jackfruit','Kiwi','Kumquat','Lemon','Lime','Lychee','Mango','Melon','Mulberry','Nectarine','Olive','Orange','Papaya','Passionfruit','Peach','Pear','Persimmon','Pineapple','Plum','Pomegranate','Quince','Raspberry','Redcurrant','Starfruit','Strawberry','Tamarind','Tangerine','Ugli fruit','Watermelon'
+    ];
 
-		document.addEventListener('DOMContentLoaded', function()
-		{
-			document.querySelector('#food_process_button').addEventListener('click', function (event)
-			{
-				var strKeys = "";
-				var keys = Object.keys(foodsToProcess);
+    function mockFetch(q) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          const low = (q||'').trim().toLowerCase();
+          if (!low) return resolve([]);
+          const results = DATA.filter(s => s.toLowerCase().includes(low)).slice(0, 30);
+          resolve(results);
+        }, 160);
+      });
+    }
+*/
+    const input = document.getElementById('search');
+    const resultsEl = document.getElementById('results');
+    const selectedListEl = document.getElementById('selectedList');
 
-				for(const key of keys)
-					strKeys += key + "\n";
+    let currentOptions = [];
+    let highlightedIndex = -1;
+    const selectedItems = new Set();
 
-				var data = index_foodProcess(strKeys);
-				var resultElem = document.getElementById("process_result");
-				resultElem.innerHTML = data;
-				
-				event.preventDefault();
-			});
-			document.querySelector('#food_search_button').addEventListener('click', function (event)
-			{
-				var textFieldElem = document.getElementById("food_search_field");
-				var data = index_foodSearch(textFieldElem.value);
-				var resultElem = document.getElementById("search_result");
-				resultElem.innerHTML = '';
-				var items = data.split('\n');
-				for(var i = 1; i < items.length; i++)
-				{
-					var litem = document.createElement('li');
-					var chkbox = document.createElement('input');
-					chkbox.setAttribute('type', 'checkbox');
-					chkbox.checked = foodsToProcess[items[i]] != null;
-					litem.appendChild(chkbox);
-					litem.appendChild(document.createTextNode(items[i]));
-					resultElem.appendChild(litem);
+    function debounce(fn, wait=250){
+      let t;
+      return (...args)=>{ clearTimeout(t); t=setTimeout(()=>fn(...args), wait); };
+    }
 
-					chkbox.onchange = function(e)
-					{
-						var processList = document.getElementById("food_to_process");
-						if(e.target.checked)
-						{
-							var processListItem = document.createElement('li');
-							processListItem.appendChild(document.createTextNode(e.target.parentElement.innerText));
-							foodsToProcess[e.target.parentElement.innerText] = processListItem;
-							processList.appendChild(processListItem);
-						}
-						else
-						{
-							processList.removeChild(foodsToProcess[e.target.parentElement.innerText]);
-							delete foodsToProcess[e.target.parentElement.innerText];
-						}
-					};
-				}
-				event.preventDefault();
-			});
-		});
-	</script>
-	<script async type="text/javascript" src="index.js"></script>
+    function fetchAndShow(q){
+      const stritems = index_foodSearch(q);
+      const items = stritems.split('\n');
+      currentOptions = items;
+      highlightedIndex = -1;
+      renderDropdown();
+    }
+
+    const debouncedFetch = debounce((q)=>{
+      if (!q.trim()) { hideDropdown(); return; }
+      fetchAndShow(q);
+    }, 220);
+
+    input.addEventListener('input', (e)=>{
+      const q = e.target.value;
+      debouncedFetch(q);
+    });
+
+    input.addEventListener('focus', ()=>{
+      if (input.value.trim()) debouncedFetch(input.value);
+    });
+
+    input.addEventListener('keydown', (e)=>{
+      const key = e.key;
+      if (resultsEl.hidden) return;
+      if (key === 'ArrowDown') { e.preventDefault(); moveHighlight(1); }
+      else if (key === 'ArrowUp') { e.preventDefault(); moveHighlight(-1); }
+      else if (key === 'Enter') { e.preventDefault(); chooseHighlighted(); }
+      else if (key === 'Escape') { hideDropdown(); }
+    });
+
+    document.addEventListener('click', (e)=>{
+      if (!e.composedPath().includes(resultsEl) && !e.composedPath().includes(input)) {
+        hideDropdown();
+      }
+    });
+
+    function renderDropdown(){
+      resultsEl.innerHTML = '';
+      if (!currentOptions.length) {
+        const no = document.createElement('div');
+        no.className = 'no-results';
+        no.textContent = 'No results';
+        resultsEl.appendChild(no);
+      } else {
+        currentOptions.forEach((str, i)=>{
+          const div = document.createElement('div');
+          div.className = 'item';
+          div.textContent = str;
+          div.setAttribute('role','option');
+          div.setAttribute('data-idx', i);
+          if (i === highlightedIndex) div.setAttribute('aria-selected','true');
+          div.addEventListener('mousedown', (ev)=>{
+            ev.preventDefault();
+            selectItem(str);
+          });
+          resultsEl.appendChild(div);
+        });
+      }
+      resultsEl.hidden = false;
+      input.setAttribute('aria-expanded','true');
+    }
+
+    function hideDropdown(){
+      resultsEl.hidden = true;
+      input.setAttribute('aria-expanded','false');
+      highlightedIndex = -1;
+    }
+
+    function moveHighlight(delta){
+      if (!currentOptions.length) return;
+      highlightedIndex = Math.max(0, Math.min(currentOptions.length-1, highlightedIndex + delta));
+      if (highlightedIndex === 0 && delta < 0 && currentOptions.length>0) highlightedIndex = currentOptions.length-1;
+      renderDropdown();
+      scrollHighlightedIntoView();
+    }
+
+    function scrollHighlightedIntoView(){
+      const el = resultsEl.querySelector('.item[aria-selected="true"]');
+      if (el) el.scrollIntoView({block:'nearest'});
+    }
+
+    function chooseHighlighted(){
+      if (highlightedIndex >=0 && currentOptions[highlightedIndex]) selectItem(currentOptions[highlightedIndex]);
+    }
+
+    function buildList(obj) {
+      const ul = document.createElement("ul");
+
+      for (const [key, value] of Object.entries(obj)) {
+        const li = document.createElement("li");
+        if(key.includes('DEF_'))
+          if(value == 0)
+            li.innerHTML = `<b style="color:red">${key.split('DEF_')[1]}: None (0% satisfied)</b>`;
+          else
+            li.innerHTML = `<b style="color:red">${key.split('DEF_')[1]}: only ${value*100}% satisfied</b>`;
+        else
+          li.innerHTML = `<b>${key}: ${value} g</b>`;
+        ul.appendChild(li);
+      }
+
+      return ul;
+    }
+
+    function removeAllButFirst(parent) {
+  while (parent.children.length > 1) {
+    parent.removeChild(parent.lastElementChild);
+  }
+}
+
+    function processSelection()
+    {
+        var strOptions = '';
+        for(const option of selectedItems)
+          strOptions += option + "\n";
+
+        ["summer", "fall", "winter", "spring"].forEach((seasonStr) =>
+        {
+          var strRes = index_foodProcess(strOptions, seasonStr);
+          var ulElem = buildList(JSON.parse(strRes));
+          var pElem = document.getElementById(seasonStr);
+          removeAllButFirst(pElem);
+          pElem.appendChild(ulElem);
+        });
+        //resultElem.innerHTML = data;
+    }
+
+    function selectItem(str){
+      if (selectedItems.has(str)) {
+        flashExistingChip(str);
+      } else {
+        selectedItems.add(str);
+        addChip(str);
+        processSelection();
+      }
+      input.value = '';
+      hideDropdown();
+      input.focus();
+    }
+
+    function selectItemWithoutProcessing(str){
+      if (selectedItems.has(str)) {
+        flashExistingChip(str);
+      } else {
+        selectedItems.add(str);
+        addChip(str);
+      }
+      input.value = '';
+      hideDropdown();
+      input.focus();
+    }
+
+    function flashExistingChip(str){
+      const el = selectedListEl.querySelector(`[data-val="${CSS.escape(str)}"]`);
+      if (!el) return;
+      el.animate([{transform:'scale(1)'},{transform:'scale(1.03)'},{transform:'scale(1)'}],{duration:220});
+    }
+
+    function addChip(str){
+      const wrap = document.createElement('div');
+      wrap.className = 'chip';
+      wrap.setAttribute('data-val', str);
+      const span = document.createElement('span');
+      span.textContent = str;
+      const btn = document.createElement('button');
+      btn.className = 'btn';
+      btn.type = 'button';
+      btn.title = 'Remove';
+      btn.innerHTML = '✕';
+      btn.addEventListener('click', ()=>{
+        selectedItems.delete(str);
+        wrap.remove();
+        processSelection();
+      });
+      wrap.appendChild(span);
+      wrap.appendChild(btn);
+      selectedListEl.appendChild(wrap);
+    }
+
+    if (!CSS.escape) { CSS.escape = function(s){ return s.replace(/([\.\+\*~'":!\[\]\(\)\#@\$%&\/,=<>{}|^`])/g,'\\$1'); }; }
+  </script>
+  <script async type="text/javascript" src="index.js"></script>
+</body>
 </html>
