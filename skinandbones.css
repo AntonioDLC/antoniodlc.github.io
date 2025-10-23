@@ -1,0 +1,68 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+body
+{
+	transition-property: background-color;
+	transition-duration: 5s;
+}
+
+img
+{
+	width: 100%;
+	height: 100%;
+}
+
+#skin > img
+{
+	height: 140%;
+}
+
+button
+{
+	flex: 1 1 0;
+	background-color: #0000;
+	border: 0px;
+	padding: 0px;
+	transition: opacity 1s, transform 0.1s;
+}
+
+#container
+{
+	display: flex;
+	height: 100%;
+}
+
+button:hover, button:focus
+{
+	transform: scale(105%);
+}
+
+#holyman
+{
+	pointer-events: none;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	left: 50%;
+	top:50%;
+	height: 100%;
+}
+
+path{
+	transition-property: fill, fill-opacity;
+	transition-duration: 1s, 10s;
+}
+
+#eye
+{
+	fill: white;
+}
+
+
+#tear
+{
+	fill-opacity: 0;
+}
