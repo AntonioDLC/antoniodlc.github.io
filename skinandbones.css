@@ -56,13 +56,13 @@ path{
 	transition-duration: 1s, 10s;
 }
 
-#eye
+.eye
 {
 	fill: white;
 }
 
 
-#tear
+.tear
 {
 	fill-opacity: 0;
 }
