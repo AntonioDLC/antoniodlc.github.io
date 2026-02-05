@@ -1,0 +1,7 @@
+::highlight(normal-highlight) {
+  background-color: #FF08;
+}
+
+::highlight(selected-highlight) {
+  background-color: #0F08;
+}
