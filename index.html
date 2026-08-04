@@ -1,25 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width">
-		<title>AntonioDLC</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="styles/default.css" rel="stylesheet" type="text/css">
+		<link href="styles/multiselect.css" rel="stylesheet" type="text/css">
+		<script src="modules/index.js" type="module"></script>
+		<title>Antonio's CV</title>
 	</head>
-	<body>
-		<h1>Cosas mías:</h1>
-		<ul>
-			<li><a href="argumentar.html">Cómo argumentar</a></li>
-			<li><a href="propuesta.html">Propuesta de sistema de salud sustentable</a></li>
-			<li><a href="thedietproblem/index.html">Diet problem solver app</a></li>
-		</ul>
-		<hr>
 
-		<h2>Cosas menos organizadas o desactualizadas</h2>
-		<ul>
-			<li><a href="game.html">Futuro pocket imperium</a></li>
-			<li><a href="codelyoko.html">Tributo a Code Lyoko</a></li>
-			<li><a href="papers.svg">El estado del conocimiento actual no me gusta, debería documentarse de otra forma</a></li>
-			<li><a href="LxR.svg">El trabajo y los recursos</a></li>
-		</ul>
+	<body>
+		<main>
+			<article>
+				<h1><span data-field="name"></span> <span data-field="lastname"></span>'s Curriculum Vitae</h1>
+				<section>
+					<h2>Languages</h2>
+					<ul data-field="languages" data-template="languageTemplate"></ul>
+				</section>
+				<article>
+					<h2>Experience</h2>
+					<p><span>Highlight and disable relevant experiences by tag: </span><select multiple id="tagFilter"></select></p>
+					<section>
+						<h3>Jobs</h3>
+						<ol data-field="experience.jobs" data-template="jobTemplate"></ol>
+					</section>
+					<section>
+						<h3>Volunteering</h3>
+						<ol data-field="experience.volunteering" data-template="volunteeringTemplate"></ol>
+					</section>
+					<section>
+						<h3>Personal projects</h3>
+						<ol data-field="experience.projects" data-template="projectTemplate"></ol>
+					</section>
+				</article>
+				<article>
+					<h2>Hard skills</h2>
+					<ul data-field="skills" data-template="skillCatsTemplate"></ul>
+				</article>
+				<footer>
+					<p>Contact: <a data-url="email"></a></p>
+					<p>Linkedin: <a data-url="linkedin"></a></p>
+				</footer>
+			</article>
+		</main>
+		<template id="jobTemplate">
+			<article>
+				<header>
+					<h4 data-field="company"></h4>
+					<p>Start date: <time data-field="start_date"></time></p>
+					<p>End date: <time data-field="end_date"></time></p>
+				</header>
+				<details open>
+					<summary data-field="position"></summary>
+					<p data-field="description"></p>
+				</details>
+				<footer><ul data-field="tags"></ul></footer>
+			</article>
+		</template>
+		<template id="volunteeringTemplate">
+			<article>
+				<header>
+					<h4 data-field="place"></h4>
+					<p>Year: <span data-field="start_date.year"></span></p>
+				</header>
+				<section>
+					<h5>Jobs:</h5>
+					<ul data-field="jobs"></ul>
+				<section>
+				<details open>
+					<summary>Description:</summary>
+					<p data-field="description"></p>
+				</details>
+				<footer><ul data-field="tags"></ul></footer>
+			</article>
+		</template>
+		<template id="projectTemplate">
+			<article>
+				<header>
+					<h4 data-field="name"></h4>
+					<p>Start date: <span data-field="start_date.year"></span></p>
+					<p data-stump>End date: <span data-field="end_date.year"></span></p>
+					<p>State: <span data-field="state"></span></p>
+				</header>
+				<details open>
+					<summary>Description:</summary>
+					<p data-field="description"></p>
+				</details>
+				<footer><ul data-field="tags"></ul></footer>
+			</article>
+		</template>
+		<template id="skillCatsTemplate">
+			<details open>
+				<summary data-field="key"></summary>
+				<ul data-field="value" data-template="skillsTemplate"></ul>
+			</details>
+		</template>
+		<template id="skillsTemplate">
+			<details open>
+				<summary data-field="key"></summary>
+				<ul data-field="value"></ul>
+			</details>
+		</template>
+		<template id="languageTemplate">
+			<p><span data-field="name"></span>: <span data-field="level"></span></p>
+		</template>
 	</body>
 </html>

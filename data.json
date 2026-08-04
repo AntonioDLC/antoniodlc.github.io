@@ -1,0 +1,233 @@
+{
+	"name":"Antonio",
+	"lastname":"de las Carreras",
+	"email": "antoniodelascarreras@gmail.com",
+	"linkedin": "https://www.linkedin.com/in/antonio-de-las-carreras-3207b0140/",
+	"languages": [{"name":"English", "level":"Advanced"}, {"name":"Spanish", "level":"Native"}],
+
+	"experience":
+	{
+		"jobs":
+		[
+			{
+				"company":"CyS",
+				"position":"MVC Developer, C#, SQL, jQuery, Angular (Full Stack).",
+				"start_date":{"year":2018, "month":9},
+				"end_date":{"year":2019, "month":9},
+				"description":"I was assigned the task of adding auction functionality to the website <a href=\"https://comprar.gob.ar\">comprar.gob.ar</a>. I modified the database to incorporate new tables and integrated the new business logic into a pre-existent very large and extremely complex system. I held meetings with the client (the government) to resolve issues smoothly and without incidents.",
+
+				"tags":["dev","web"]
+			},
+			{
+				"company":"Pixowl",
+				"position":"C++ developer",
+				"start_date":{"year":2019, "month":10},
+				"end_date":{"year":2021, "month":8},
+				"description":"I was assigned to expand and maintain the game Addams Family Mystery Mansion (on both Play Store and AppStore) and its in-house engine in C++ and occasionally adding features to an Objective-C project used for data updates. Also, more frequently than Objective-C but much less than C++ I had to modify and add features in Java for Android, like SDK integration or IPC communication. I mainly developed in C++ with the Cocos2dx framework to add features and improve the game applying the best possible design practices under the time constraints given for the releases. Afterwards we added a Match3 Unity project module to the C++ project, so I occasionally worked with C# and gained some experience with the Unity engine.",
+
+				"tags":["dev","gamedev"]
+			},
+			{
+				"company":"Globant",
+				"position":"C++/Unreal developer",
+				"start_date":{"year":2021, "month":8},
+				"end_date":{"year":2024, "month":2},
+				"description":"I was hired as a game developer for the Epic Games team, specifically for Fortnite development. I worked on UI related bugs on Unreal/C++ with Perforce. Attended tons of online meetings with the rest of Epic’s staff, both contractors and direct employees, all communication was in english. Was put in charge of implementing main menu changes as specified by game design. Changes were peer reviewed and approved by Epic’s staff.",
+
+				"tags":["dev","gamedev"]
+			}
+		],
+		"volunteering":
+		[
+			{
+				"place":"Ñacundá",
+				"jobs":["Farming", "Construction", "Carpentry", "Livestock feeding", "Plumbing", "Electrical maintenance", "Cleaning", "Cooking", "Pest control"],
+				"start_date":{"year":2024},
+				"end_date":{"year":2024},
+				"description":"I volunteered at Ñacundá in Corrientes, Argentina helping alongside other volunteers with everyday tasks including the building, designing and material calculation for the second story of a wooden structure to be closed with the 'quincha' technique for bioconstruction. Feeding and herding chickens and sheep, cutting wood, diagnosing and fixing electrical issues, and cooking were the most time consuming tasks and where I learned the most in terms of hard skills. I learned how to use several carpentry tools like power saw, miter saw, angle grinder, and construction techniques for mixing materials and building walls.",
+
+				"tags":["farming","construction"]
+			},
+			{
+				"place":"Acauaphy/Akaguapy",
+				"jobs":["Agroforestry", "Cleaning", "Cooking"],
+				"start_date":{"year":2024},
+				"end_date":{"year":2024},
+				"description":"I volunteered at Acaguapy in Misiones, Argentina helping to till and plant bananas, papayas, eucalyptus, cassava, and several smaller vegetables all intermixed strategically for optimizing soil usage and regeneration according Agroforestry practices which we were taught along the way.",
+
+				"tags":["farming"]
+			},
+			{
+				"place":"Costa del río",
+				"jobs":["Gardening"],
+				"start_date":{"year":2025},
+				"end_date":{"year":2025},
+				"description":"Took care of the garden of an old couple for 10 days in El Bolsón, Río Negro",
+				"tags":["farming"]
+			},
+			{
+				"place":"Tierra Caracol",
+				"jobs":["Farming", "Construction"],
+				"start_date":{"year":2025},
+				"end_date":{"year":2025},
+				"description":"I volunteered helping a young couple in Trevelin, Chubut. Mainly harvesting garlic and kale for sale. Also replacing the wall base with a waterproof mix of lime, cement and stones.",
+				"tags":["farming","construction"]
+			},
+			{
+				"place":"Camping El Montañés",
+				"jobs":["Construction","Administration"],
+				"start_date":{"year":2025},
+				"end_date":{"year":2025},
+				"description":"I volunteered helping forest fire victims rebuild their homes, coordinating volunteering teams, talking with the Municipality, building Google Forms and spreadsheets to properly manage locations, needs and volunteers.",
+				"tags":["dev","administration","construction"]
+			},
+			{
+				"place":"Permaculture in VLA",
+				"jobs":["Developer", "Construction"],
+				"start_date":{"year":2025},
+				"end_date":{"year":2025},
+				"description":"I volunteered helping build the roof for an extension and future school of Permaculture in Villa La Angostura, Neuquén. The last week was mostly spent programming an embedded system for Arduino UNO and an ESP8266 wifi chip with moisture and CO2 sensors to regulate fans and windows for greenhouse and normal house air quality and temperature regulation.",
+				"tags":["dev","administration","construction"]
+			},
+			{
+				"place":"Latir de la madre tierra",
+				"jobs":["Farming"],
+				"start_date":{"year":2025},
+				"end_date":{"year":2025},
+				"description":"I volunteered helping pack organic products for sale while getting tours of the inner workings of the farm.",
+				"tags":["farming"]
+			},
+			{
+				"place":"Amatreya",
+				"jobs":["Farming"],
+				"start_date":{"year":2025},
+				"end_date":{"year":2025},
+				"description":"I volunteered helping pack 'tabaquillo' saplings for their eventual planting according to a plan by Accion Andina for forest-hydrological restoration in both the Andes and Cordoba's mountains.",
+				"tags":["farming"]
+			},
+			{
+				"place":"Arte y Tierra",
+				"jobs":["Farming"],
+				"start_date":{"year":2025},
+				"end_date":{"year":2025},
+				"description":"I volunteered helping take care of their vegetable gardens, 'Girgola' mushroom inoculation and substratum making, and building a classroom for a bioconstruction school.",
+				"tags":["farming", "construction"]
+			},
+			{
+				"place":"Chacra Agroecológica Las Gurisas",
+				"jobs":["Farming"],
+				"start_date":{"year":2025},
+				"end_date":{"year":2025},
+				"description":"I tilled the earth for blackberry farming and harvested pecan nuts.",
+				"tags":["farming", "construction"]
+			}
+		]
+		,
+		"projects":
+		[
+			{
+				"name":"OpenGL Template Project",
+				"start_date":{"year":2020},
+				"end_date":{"year":2022},
+				"description":"I worked for a while on a SVG based graphics engine written in C where I try out OOP design strategies and try to work out the simplest approach to designing an interactive app or game with vector graphics on OpenGL. It’s partially compatible with Inkscape-generated files to design UI, physical objects and interactive behavior.",
+				"state":"REPLACED",
+				"tags":["dev","gamedev"]
+			},
+			{
+				"name":"Event Based System",
+				"start_date":{"year":2022},
+				"description": "Based on the OpenGL Template Project, I started working in a different direction and made it a custom 3D graphics engine written in C and OpenGL. The program can be built for Windows, Linux and Android using platform specific code to map the input and common shared code for most of the actual functionality. It’s called “Event Based” because it relies on stored lambda-like messages and events instead of composition, inheritance, and overrides to provide with a simple way to make complex functionality.",
+				"state": "IN DEVELOPMENT",
+				"tags":["dev","gamedev"]
+			},
+			{
+				"name":"C HTTP server",
+				"start_date":{"year":2024},
+				"end_date":{"year":2024},
+				"description": "I made a C only backed which compiles into a single executable of ~5-6Mb which works in Windows and Linux. It uses TCP connections and also handles protocol switches to Websockets.",
+				"state": "FINISHED",
+				"tags":["dev","web"]
+			},
+			{
+				"name":"Python/Selenium scripts",
+				"start_date":{"year":2024},
+				"description": "I made several Python scripts with the Selenium library to webscrap and automatically update files and databases from websites without an exposed API, using legal and personal credentials for private requests. This will probably forever remain IN DEVELOPEMENT since websites may change and therefore the scripts.",
+				"state": "IN DEVELOPMENT",
+				"tags":["dev","web"]
+			},
+			{
+				"name":"Diet Problem solver",
+				"start_date":{"year":2025},
+				"description": "I made a web app where you load a list of foods pulled from the USDA FOOD databases and it answers with the grams of each item you should eat daily to sate the maximum amount of nutrient needs with the minimum amount of dry matter ingested. It uses the HiGHS lineal solver called from C compiled into a WASM. It also includes the entire database as a sqlite file which is also consulted from WASM.",
+				"state": "ON HOLD",
+				"tags":["dev","web"]
+			},
+			{
+				"name":"Argument mapping website",
+				"start_date":{"year":2025},
+				"description": "I’m currently working on a forum website with a vanilla HTML/CSS/JS front, and a Golang + Postgres back. The website will store a variety of statements and the relations in which they support each other in an argument graph which will be displayed with d3.js when users open it, where they will be able to follow the discussion online in a manner similar to kialo.com.",
+				"state": "IN DEVELOPMENT",
+				"tags":["dev","web"]
+			},
+			{
+				"name":"Self-sufficency",
+				"start_date":{"year":2026},
+				"description": "I bought land with almost a hundred more people and together we are building it to be a place we can inhabit and some of us produce in. It involves a lot of inner organization efforts and individual permaculture/farming planning for the private piece of land I own there.",
+				"state": "IN DEVELOPMENT",
+				"tags":["farming","administration"]
+			}
+		]
+	},	
+	"skills": {
+		"development": {
+			"languages": [
+				"C",
+				"C++",
+				"OpenGLSL",
+				"C#",
+				"SQL",
+				"JavaScript",
+				"Python",
+				"Bash",
+				"Batch",
+				"PowerShell",
+				"Golang",
+				"Assembler x86",
+				"Objective-C",
+				"Makefile",
+				"HTML",
+				"CSS",
+				"XML"
+			],
+			"platforms": [
+				"Linux",
+				"Windows",
+				"Android",
+				"iOS",
+				"Web"
+			],
+			"tools": [
+				"Git",
+				"CMake",
+				"Visual Studio",
+				"Xcode",
+				"Android Studio",
+				"Unity",
+				"Perforce",
+				"GCC",
+				"Emscripten",
+				"PyInstaller",
+				"Inkscape"
+			],
+			"other": [
+				"OpenGL",
+				"OpenGLES",
+				"WebAssembly",
+				"FFmpeg",
+				"SVG",
+				"JSON",
+				"PDF.js"
+			]
+		}
+	}
+}
